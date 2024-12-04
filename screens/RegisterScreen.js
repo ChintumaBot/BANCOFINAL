@@ -7,6 +7,7 @@ const RegisterScreen = ({ navigation }) => {
   const [apellido_m, setMiddleName] = useState('');
   const [correo, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const saldo = 0.00;
 
   const handleRegister = () => {
     if (!nombre || !apellido_p || !apellido_m || !correo || !password) {
@@ -32,7 +33,7 @@ const RegisterScreen = ({ navigation }) => {
       .then((data) => {
         if (data.success) {
           Alert.alert('Registro exitoso', `¡Bienvenido/a, ${nombre}!`);
-          navigation.navigate('HomeScreen');
+          navigation.navigate('HomeScreen', {user: { nombre, apellido_p, apellido_m, correo, saldo },});
         } else {
           Alert.alert('Error', data.message);
         }

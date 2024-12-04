@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'rea
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ route, navigation }) => {
-  const { user } = route.params;
+  const { user } = route.params; 
 
   const handleLogout = () => {
     Alert.alert('Cerrar sesión', '¿Estás seguro de que deseas cerrar sesión?', [
@@ -33,7 +33,7 @@ const HomeScreen = ({ route, navigation }) => {
 
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => navigation.navigate('RecibirScreen')}
+          onPress={() => navigation.navigate('RecibirScreen', { user: user })}
         >
           <Icon name="arrow-down" size={20} color="#ffffff" style={styles.icon} />
           <Text style={styles.optionText}>Recibir</Text>

@@ -24,8 +24,6 @@ const LoginScreen = ({ navigation }) => {
       const data = await response.json();
 
       if (data.success) {
-        const userName = `${data.user.nombre}`;
-        Alert.alert('Inicio de sesión exitoso', `¡Bienvenido/a, ${userName}!`);
         navigation.navigate('HomeScreen', { user: data.user });
       } else {
         Alert.alert('Error', data.message || 'Credenciales incorrectas');
