@@ -10,8 +10,8 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName="WelcomeScreen">
-                <Stack.Screen name="register" component={RegisterScreen} />
-                <Stack.Screen name="welcome" component={WelcomeScreen} />
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             </Stack.Navigator>
         </NavigationContainer>
     );
