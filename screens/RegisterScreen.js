@@ -15,7 +15,7 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     // Registro en el backend
-    fetch('http://192.168.0.149:5000/api/register', {
+    fetch('http://192.168.0.149:5000/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -31,8 +31,8 @@ const RegisterScreen = ({ navigation }) => {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          Alert.alert('Registro exitoso', `¡Bienvenido, ${nombre} ${apellido_p}!`);
-//          navigation.navigate('Login'); // Navega a la pantalla de inicio
+          Alert.alert('Registro exitoso', `¡Bienvenido/a, ${nombre}!`);
+          navigation.navigate('HomeScreen');
         } else {
           Alert.alert('Error', data.message);
         }
@@ -111,13 +111,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   input: {
-    height: 50,
-    borderBottomColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 15,
-    color: '#fff',
+    width: '100%',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#007BFF',
+    color: '#ffffff',
+    marginBottom: 20,
   },
   button: {
     height: 50,
