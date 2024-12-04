@@ -49,24 +49,28 @@ const RegisterScreen = ({ navigation }) => {
 
       <TextInput
         placeholder="Nombre"
+        placeholderTextColor="#AAAAAA"
         style={styles.input}
         value={nombre}
         onChangeText={setFirstName}
       />
       <TextInput
         placeholder="Apellido paterno"
+        placeholderTextColor="#AAAAAA"
         style={styles.input}
         value={apellido_p}
         onChangeText={setLastName}
       />
       <TextInput
         placeholder="Apellido materno"
+        placeholderTextColor="#AAAAAA"
         style={styles.input}
         value={apellido_m}
         onChangeText={setMiddleName}
       />
       <TextInput
         placeholder="Correo electrónico"
+        placeholderTextColor="#AAAAAA"
         style={styles.input}
         keyboardType="email-address"
         value={correo}
@@ -74,6 +78,7 @@ const RegisterScreen = ({ navigation }) => {
       />
       <TextInput
         placeholder="Contraseña"
+        placeholderTextColor="#AAAAAA"
         style={styles.input}
         secureTextEntry
         value={password}
@@ -84,7 +89,7 @@ const RegisterScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Registrarse</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
         <Text style={styles.link}>¿Ya estás registrado? Inicia sesión</Text>
       </TouchableOpacity>
     </View>
@@ -96,30 +101,30 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#f8f8f8',
+    backgroundColor: '#121212',
   },
   welcomeText: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
-    color: '#333',
+    color: '#FFFFFF',
   },
   input: {
     height: 50,
-    borderColor: '#ddd',
+    borderBottomColor: '#ddd',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 15,
-    backgroundColor: '#fff',
+    color: '#fff',
   },
   button: {
     height: 50,
     backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 10,
     marginTop: 10,
   },
   buttonText: {
