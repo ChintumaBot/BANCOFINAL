@@ -1,20 +1,29 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 export default function TransferConfirmationScreen({ route, navigation }) {
-  const { name, amount } = route.params;
+  const { recipientName, amount } = route.params;
+  const { user } = route.params;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Transferencia exitosa</Text>
-      <Text style={styles.message}>
-        Tu transferencia a <Text style={styles.bold}>{name}</Text> por{" "}
-        <Text style={styles.bold}>${amount} MXN</Text> se realizó con éxito.
-      </Text>
-      <Button
-        title="Ir a inicio"
-        onPress={() => navigation.navigate("HomeScreen")}
-      />
+      <View style={styles.card}>
+        <FontAwesome name="check-circle" size={60} color="#4CAF50" style={styles.icon} />
+        <Text style={styles.title}>¡Transferencia exitosa!</Text>
+        <Text style={styles.message}>
+          Has enviado <Text style={styles.highlight}>${amount} MXN</Text> a{" "}
+          <Text style={styles.highlight}>{recipientName}</Text>. 🎉
+        </Text>
+      </View>
+
+      <TouchableOpacity
+        style={styles.homeButton}
+        onPress={() => navigation.navigate('HomeScreen', { user: user })}
+      >
+        <FontAwesome name="home" size={25} color="#fff" style={styles.iconButton} />
+        <Text style={styles.buttonText}>Ir a inicio</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -25,22 +34,58 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#121212", 
+  },
+  card: {
+    backgroundColor: "#1F1F1F", 
+    borderRadius: 10,
+    padding: 30,
+    alignItems: "center",
+    marginBottom: 50,
+    shadowColor: "#000",
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    elevation: 5, 
+  },
+  icon: {
+    marginBottom: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26, 
     fontWeight: "bold",
-    color: "#2d2d2d",
-    marginBottom: 20,
+    color: "#4CAF50", 
+    marginBottom: 10,
   },
   message: {
     fontSize: 18,
-    color: "#555",
+    color: "#fff", 
     textAlign: "center",
-    marginBottom: 30,
+    lineHeight: 25,
   },
-  bold: {
+  highlight: {
     fontWeight: "bold",
-    color: "#000",
+    color: "#4CAF50", 
+  },
+  homeButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#1E88E5", 
+    paddingVertical: 15, 
+    paddingHorizontal: 25,
+    borderRadius: 50, 
+    shadowColor: "#000",
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    elevation: 4,
+    marginTop: 10,
+  },
+  buttonText: {
+    fontSize: 20, 
+    color: "#fff",
+    fontWeight: "600",
+    marginLeft: 10, 
+  },
+  iconButton: {
+    marginRight: 10, 
   },
 });

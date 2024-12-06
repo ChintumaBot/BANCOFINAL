@@ -61,6 +61,7 @@ export default function TransferScreen({ navigation, route }) {
           navigation.navigate("TransferConfirmationScreen", {
             recipientName: qrData.nombre,
             amount: monto,
+            user: user,
           });
         } else {
           Alert.alert("Error", data.message || "Error en la transferencia.");
