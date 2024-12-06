@@ -1,9 +1,42 @@
-import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({ route, navigation }) => {
-  const { user } = route.params; 
+  const { user } = route.params;
+  const [saldo, setSaldo] = useState(user.saldo);
+  const [loading, setLoading] = useState(false);
+
+  const fetchSaldo = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://192.168.0.149:5000/api/saldo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user.id }),
+      });
+
+      if (!response.ok) throw new Error('Error al obtener el saldo.');
+      const data = await response.json();
+      
+      if (data.success) {
+        setSaldo(data.user.saldo);
+      } else {
+        Alert.alert('Error', data.message);
+      }
+    } catch (error) {
+      Alert.alert('Error', 'No se pudo actualizar el saldo.');
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSaldo();
+  }, []);
 
   const handleLogout = () => {
     Alert.alert('Cerrar sesión', '¿Estás seguro de que deseas cerrar sesión?', [
@@ -18,14 +51,18 @@ const HomeScreen = ({ route, navigation }) => {
         <Text style={styles.greeting}>Hola, {user.nombre}</Text>
         <View style={styles.saldoContainer}>
           <Text style={styles.saldoTitle}>Saldo disponible</Text>
-          <Text style={styles.saldoAmount}>${user.saldo.toFixed(2)}</Text>
+          {loading ? (
+            <ActivityIndicator size="large" color="#4caf50" />
+          ) : (
+            <Text style={styles.saldoAmount}>${saldo.toFixed(2)}</Text>
+          )}
         </View>
       </View>
 
       <View style={styles.optionsContainer}>
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => navigation.navigate('TransferScreen', { user: user })}
+          onPress={() => navigation.navigate('TransferScreen', { user: { ...user, saldo } })}
         >
           <Icon name="money" size={20} color="#ffffff" style={styles.icon} />
           <Text style={styles.optionText}>Transferir</Text>
@@ -33,7 +70,7 @@ const HomeScreen = ({ route, navigation }) => {
 
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => navigation.navigate('RecibirScreen', { user: user })}
+          onPress={() => navigation.navigate('RecibirScreen', { user: { ...user, saldo } })}
         >
           <Icon name="arrow-down" size={20} color="#ffffff" style={styles.icon} />
           <Text style={styles.optionText}>Recibir</Text>
@@ -112,7 +149,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-},
+  },
   logoutButton: {
     backgroundColor: '#FF5733',
     padding: 15,
