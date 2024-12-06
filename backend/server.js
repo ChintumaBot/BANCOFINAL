@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
-const { transferFunds } = require('./routes/transfer');
+const { transferFunds, checkTransferStatus, actualizarEstado } = require('./routes/transfer');
 const saldoRouter = require('./routes/saldo');
 
 require('dotenv').config();
@@ -15,6 +15,8 @@ app.use(bodyParser.json());
 
 app.use('/api/auth', authRoutes);
 app.post('/api/transfer', transferFunds);
+app.post('/api/transferencia/verificar', checkTransferStatus);
+app.post('/api/transferencia/actualizar', actualizarEstado); 
 app.use('/api', saldoRouter);
 
 app.listen(PORT, () => {

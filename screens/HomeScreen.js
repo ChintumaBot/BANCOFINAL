@@ -70,7 +70,7 @@ const HomeScreen = ({ route, navigation }) => {
 
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => navigation.navigate('RecibirScreen', { user: { ...user, saldo } })}
+          onPress={() => navigation.navigate('RecibirScreen', { user: { ...user, saldo }})}
         >
           <Icon name="arrow-down" size={20} color="#ffffff" style={styles.icon} />
           <Text style={styles.optionText}>Recibir</Text>
