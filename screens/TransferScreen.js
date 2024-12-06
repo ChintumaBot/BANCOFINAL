@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, TextInput, Alert, TouchableOpacity } from "react-native";
 import { CameraView, Camera } from "expo-camera";
 
-export default function TransferScreen() {
+export default function TransferScreen({ navigation, route }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [qrData, setQrData] = useState(null);
   const [errorMessage, setErrorMessage] = useState(false);
+  const [monto, setMonto] = useState("");
+  const [concepto, setConcepto] = useState("");
+
+  const { user } = route.params;
 
   useEffect(() => {
     const getCameraPermissions = async () => {
@@ -26,6 +30,49 @@ export default function TransferScreen() {
     } catch (error) {
       setErrorMessage(true);
     }
+  };
+
+  const handleTransfer = () => {
+    if (!monto || parseFloat(monto) <= 0) {
+      Alert.alert("Error", "Por favor ingresa un monto válido.");
+      return;
+    }
+
+    if (!concepto) {
+      Alert.alert("Error", "Por favor ingresa un concepto.");
+      return;
+    }
+
+    fetch("http://192.168.0.149:5000/api/transfer", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fromUserId: user.id,
+        toUserId: qrData.idUsuario,
+        amount: parseFloat(monto),
+        concepto,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          navigation.navigate("TransferConfirmationScreen", {
+            recipientName: qrData.nombre,
+            amount: monto,
+          });
+        } else {
+          Alert.alert("Error", data.message || "Error en la transferencia.");
+        }
+      })
+      .catch((error) => {
+        Alert.alert("Error", "Error de conexión al realizar la transferencia.");
+      });
+  };
+
+  const handleCancel = () => {
+    navigation.goBack();
   };
 
   if (hasPermission === null) {
@@ -52,7 +99,38 @@ export default function TransferScreen() {
           />
         </View>
       ) : qrData ? (
-        <Text style={styles.info}>Nombre: {qrData.nombre} | ID de cuenta en la base de datos: {qrData.idUsuario}</Text>
+        <View style={styles.formContainer}>
+          <Text style={styles.title}>Transferencia para {qrData.nombre}</Text>
+
+          <Text style={styles.label}>Monto</Text>
+          <TextInput
+            style={styles.amountInput}
+            value={monto}
+            onChangeText={setMonto}
+            placeholder="0 MXN"
+            placeholderTextColor="#AAAAAA"
+            keyboardType="numeric"
+          />
+
+          <Text style={styles.label}>Concepto</Text>
+          <TextInput
+            style={styles.conceptInput}
+            value={concepto}
+            onChangeText={setConcepto}
+            placeholder="Ingresa el concepto"
+            placeholderTextColor="#AAAAAA"
+            maxLength={40}
+          />
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.roundButton} onPress={handleTransfer}>
+              <Text style={styles.buttonText}>Transferir</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
+              <Text style={styles.buttonText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       ) : (
         <>
           <Text style={styles.title}>Escanea el código QR</Text>
@@ -68,7 +146,8 @@ export default function TransferScreen() {
           {scanned && (
             <Button
               title="Volver a intentar"
-              onPress={() => setScanned(false)} 
+              onPress={() => setScanned(false)}
+              color="#1E88E5"
             />
           )}
         </>
@@ -86,15 +165,46 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
+    fontSize: 28,
+    fontWeight: "600",
     color: "#ffffff",
-    marginBottom: 20,
+    marginBottom: 30,
+    textAlign: "center",
   },
-  info: {
-    fontSize: 18,
-    color: "#cccccc",
-    marginBottom: 10,
+  formContainer: {
+    width: "100%",
+    padding: 30,
+    backgroundColor: "#1E1E1E",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  label: {
+    fontSize: 16,
+    color: "#ffffff",
+    marginBottom: 8,
+    fontWeight: "600",
+  },
+  amountInput: {
+    height: 50,
+    borderColor: "#1E88E5",
+    borderBottomWidth: 2,
+    color: "#ffffff",
+    fontSize: 24,
+    marginBottom: 20,
+    paddingLeft: 10,
+  },
+  conceptInput: {
+    height: 50,
+    borderColor: "#1E88E5",
+    borderBottomWidth: 2,
+    color: "#ffffff",
+    fontSize: 16,
+    marginBottom: 30,
+    paddingLeft: 10,
   },
   scanner: {
     height: 300,
@@ -111,5 +221,31 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     marginBottom: 20,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  roundButton: {
+    backgroundColor: "#1E88E5",
+    width: 160,
+    height: 50,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cancelButton: {
+    backgroundColor: "#d32f2f",
+    width: 160,
+    height: 50,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "600",
   },
 });

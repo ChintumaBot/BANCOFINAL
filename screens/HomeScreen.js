@@ -25,7 +25,7 @@ const HomeScreen = ({ route, navigation }) => {
       <View style={styles.optionsContainer}>
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => navigation.navigate('TransferScreen')}
+          onPress={() => navigation.navigate('TransferScreen', { user: user })}
         >
           <Icon name="money" size={20} color="#ffffff" style={styles.icon} />
           <Text style={styles.optionText}>Transferir</Text>

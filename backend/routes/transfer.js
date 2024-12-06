@@ -64,7 +64,7 @@ const transferFunds = async (req, res) => {
                     });
                   }
 
-                  res.status(200).json({ message: 'Transferencia realizada con éxito.' });
+                  res.status(200).json({success: true,message: 'Transferencia realizada con éxito.',});
                 });
               });
             });

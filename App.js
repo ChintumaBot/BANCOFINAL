@@ -7,6 +7,7 @@ import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import TransferScreen from './screens/TransferScreen';
 import RecibirScreen from './screens/RecibirScreen';
+import TransferConfirmationScreen from './screens/TransferConfirmationScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +21,7 @@ export default function App() {
                 <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="TransferScreen" component={TransferScreen} />
                 <Stack.Screen name="RecibirScreen" component={RecibirScreen} />
+                <Stack.Screen name="TransferConfirmationScreen" component={TransferConfirmationScreen} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
