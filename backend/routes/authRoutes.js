@@ -22,7 +22,19 @@ router.post('/register', async (req, res) => {
         }
         return res.status(500).json({ success: false, message: 'Error en el servidor' });
       }
-      res.status(201).json({ success: true, message: 'Usuario registrado exitosamente' });
+      const newUserId = results.insertId;
+      res.status(201).json({
+        success: true,
+        message: 'Usuario registrado exitosamente',
+        user: {
+          id: newUserId,
+          nombre,
+          apellido_p,
+          apellido_m,
+          correo,
+          saldo: 0,
+        },
+      });
     });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error en el servidor' });
