@@ -97,7 +97,7 @@ const checkTransferStatus = async (req, res) => {
         m.id,
         m.monto, 
         m.concepto, 
-        m.descripcion, 
+        m.fecha, 
         m.estado,
         u.nombre AS remitente
       FROM 
@@ -136,7 +136,7 @@ const checkTransferStatus = async (req, res) => {
           remitente: transferencia.remitente,
           monto: transferencia.monto,
           concepto: transferencia.concepto,
-          descripcion: transferencia.descripcion,
+          fecha: transferencia.fecha,
           estado: transferencia.estado,
         },
       });

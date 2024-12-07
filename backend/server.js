@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/authRoutes');
 const { transferFunds, checkTransferStatus, actualizarEstado } = require('./routes/transfer');
 const saldoRouter = require('./routes/saldo');
+const movimientosRoutes = require('./routes/movimientosRoutes');
 
 require('dotenv').config();
 
@@ -16,8 +17,9 @@ app.use(bodyParser.json());
 app.use('/api/auth', authRoutes);
 app.post('/api/transfer', transferFunds);
 app.post('/api/transferencia/verificar', checkTransferStatus);
-app.post('/api/transferencia/actualizar', actualizarEstado); 
+app.post('/api/transferencia/actualizar', actualizarEstado);
 app.use('/api', saldoRouter);
+app.use('/api', movimientosRoutes);
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`);

@@ -91,13 +91,19 @@ const RecibirScreen = ({ route, navigation }) => {
           <Text style={styles.transferenciaText}>{`De: ${transferencia.remitente}`}</Text>
           <Text style={styles.transferenciaText}>{`Monto: $${transferencia.monto} MXN`}</Text>
           <Text style={styles.transferenciaText}>{`Concepto: ${transferencia.concepto}`}</Text>
-          <Text style={styles.transferenciaText}>{`Descripción: ${transferencia.descripcion}`}</Text>
+          <Text style={[styles.transferenciaText, styles.fecha]}>
+            {new Date(transferencia.fecha).toLocaleDateString('es-MX', {
+              weekday: 'long',
+              year: 'numeric', 
+              month: 'long', 
+              day: 'numeric', 
+            })}
+          </Text>
 
           {transferencia.estado === 'pendiente' && (
             <TouchableOpacity
               style={styles.confirmButton}
               onPress={() => actualizarEstadoTransferencia(transferencia.id)}
-              
             >
               <Text style={styles.confirmButtonText}>Confirmar recepción</Text>
             </TouchableOpacity>
@@ -160,6 +166,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#ffffff',
     marginBottom: 8,
+  },
+  fecha: {
+    color: '#b0b0b0', 
+    marginBottom: 12,  
   },
   confirmButton: {
     marginTop: 20,

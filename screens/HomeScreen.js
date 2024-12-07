@@ -70,7 +70,7 @@ const HomeScreen = ({ route, navigation }) => {
 
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => navigation.navigate('RecibirScreen', { user: { ...user, saldo }})}
+          onPress={() => navigation.navigate('RecibirScreen', { user: { ...user, saldo } })}
         >
           <Icon name="arrow-down" size={20} color="#ffffff" style={styles.icon} />
           <Text style={styles.optionText}>Recibir</Text>
@@ -78,7 +78,7 @@ const HomeScreen = ({ route, navigation }) => {
 
         <TouchableOpacity
           style={styles.optionButton}
-          onPress={() => navigation.navigate('MovimientosScreen')}
+          onPress={() => navigation.navigate('MovimientosScreen', { userId: user.id })}
         >
           <Icon name="history" size={20} color="#ffffff" style={styles.icon} />
           <Text style={styles.optionText}>Movimientos</Text>
