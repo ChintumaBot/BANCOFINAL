@@ -10,7 +10,7 @@ const HomeScreen = ({ route, navigation }) => {
   const fetchSaldo = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://192.168.0.149:5000/api/saldo', {
+      const response = await fetch('http://172.17.182.104:5000/api/saldo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

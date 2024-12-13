@@ -15,7 +15,7 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     // Registro en el backend
-    fetch('http://192.168.0.149:5000/api/auth/register', {
+    fetch('http://172.17.182.104:5000/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

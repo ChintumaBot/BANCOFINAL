@@ -13,7 +13,7 @@ const LoginScreen = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch('http://192.168.0.149:5000/api/auth/login', {
+      const response = await fetch('http://172.17.182.104:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

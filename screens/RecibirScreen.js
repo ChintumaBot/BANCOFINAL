@@ -18,7 +18,7 @@ const RecibirScreen = ({ route, navigation }) => {
 
     const obtenerTransferencia = async () => {
       try {
-        const response = await fetch('http://192.168.0.149:5000/api/transferencia/verificar', {
+        const response = await fetch('http://172.17.182.104:5000/api/transferencia/verificar', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ const RecibirScreen = ({ route, navigation }) => {
 
   const actualizarEstadoTransferencia = async (transferenciaId) => {
     try {
-      const response = await fetch('http://192.168.0.149:5000/api/transferencia/actualizar', {
+      const response = await fetch('http://172.17.182.104:5000/api/transferencia/actualizar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

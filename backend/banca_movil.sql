@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-12-2024 a las 04:34:20
+-- Tiempo de generación: 13-12-2024 a las 16:03:53
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -38,14 +38,6 @@ CREATE TABLE `cuentas` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Volcado de datos para la tabla `cuentas`
---
-
-INSERT INTO `cuentas` (`id`, `nombre`, `apellido_paterno`, `apellido_materno`, `correo`, `saldo`, `fecha_apertura`, `password`) VALUES
-(1, 'Roman', 'Guerrero', 'Zepeda', 'rguerrero@gmail.com', 35005.00, '2024-12-07 01:42:43', '$2b$10$vXhRdRLyiCrMNxLdpcCN/.HbsjdvUCxlCpUtuXjlLzFCvBuECUDAG'),
-(2, 'Magdalena ', 'Zepeda ', 'Cobos ', 'mzepeda@gmail.com', 14995.00, '2024-12-07 01:46:20', '$2b$10$uMmJfUiAYObpDMCFei8kc.Go9UZUQVvFSo9gvnufa3dphPFhOuT0y');
-
 -- --------------------------------------------------------
 
 --
@@ -62,14 +54,6 @@ CREATE TABLE `movimientos` (
   `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `estado` enum('pendiente','completada') DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Volcado de datos para la tabla `movimientos`
---
-
-INSERT INTO `movimientos` (`id`, `id_cuenta`, `id_destino`, `monto`, `descripcion`, `concepto`, `fecha`, `estado`) VALUES
-(1, 1, 2, 15000.00, 'Transferencia', 'Renta', '2024-12-07 01:47:01', 'completada'),
-(2, 2, 1, 5.00, 'Transferencia', 'Devolución ', '2024-12-07 01:47:54', 'completada');
 
 --
 -- Índices para tablas volcadas
@@ -98,13 +82,13 @@ ALTER TABLE `movimientos`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `movimientos`
 --
 ALTER TABLE `movimientos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas

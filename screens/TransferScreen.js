@@ -43,7 +43,7 @@ export default function TransferScreen({ navigation, route }) {
       return;
     }
 
-    fetch("http://192.168.0.149:5000/api/transfer", {
+    fetch("http://172.17.182.104:5000/api/transfer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
