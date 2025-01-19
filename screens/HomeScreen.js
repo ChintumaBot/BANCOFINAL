@@ -10,7 +10,7 @@ const HomeScreen = ({ route, navigation }) => {
   const fetchSaldo = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://172.17.182.104:5000/api/saldo', {
+      const response = await fetch('http://192.168.1.108:5000/api/saldo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,10 +49,11 @@ const HomeScreen = ({ route, navigation }) => {
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.greeting}>Hola, {user.nombre}</Text>
+        <Text style={styles.inspirationalQuote}>“El éxito no es la clave de la felicidad. La felicidad es la clave del éxito.”</Text> {/* Frase inspiradora */}
         <View style={styles.saldoContainer}>
           <Text style={styles.saldoTitle}>Saldo disponible</Text>
           {loading ? (
-            <ActivityIndicator size="large" color="#4caf50" />
+            <ActivityIndicator size="large" color="#0033A0" />
           ) : (
             <Text style={styles.saldoAmount}>${saldo.toFixed(2)}</Text>
           )}
@@ -64,7 +65,7 @@ const HomeScreen = ({ route, navigation }) => {
           style={styles.optionButton}
           onPress={() => navigation.navigate('TransferScreen', { user: { ...user, saldo } })}
         >
-          <Icon name="money" size={20} color="#ffffff" style={styles.icon} />
+          <Icon name="money" size={20} color="#FFFFFF" style={styles.icon} />
           <Text style={styles.optionText}>Transferir</Text>
         </TouchableOpacity>
 
@@ -72,7 +73,7 @@ const HomeScreen = ({ route, navigation }) => {
           style={styles.optionButton}
           onPress={() => navigation.navigate('RecibirScreen', { user: { ...user, saldo } })}
         >
-          <Icon name="arrow-down" size={20} color="#ffffff" style={styles.icon} />
+          <Icon name="arrow-down" size={20} color="#FFFFFF" style={styles.icon} />
           <Text style={styles.optionText}>Recibir</Text>
         </TouchableOpacity>
 
@@ -80,12 +81,12 @@ const HomeScreen = ({ route, navigation }) => {
           style={styles.optionButton}
           onPress={() => navigation.navigate('MovimientosScreen', { userId: user.id })}
         >
-          <Icon name="history" size={20} color="#ffffff" style={styles.icon} />
+          <Icon name="history" size={20} color="#FFFFFF" style={styles.icon} />
           <Text style={styles.optionText}>Movimientos</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
-          <Icon name="sign-out" size={20} color="#ffffff" style={styles.icon} />
+          <Icon name="sign-out" size={20} color="#FFFFFF" style={styles.icon} />
           <Text style={styles.logoutText}>Cerrar sesión</Text>
         </TouchableOpacity>
       </View>
@@ -96,7 +97,7 @@ const HomeScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1c1c1c',
+    backgroundColor: '#FFFFFF',
     padding: 20,
   },
   header: {
@@ -106,10 +107,16 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#0033A0',
+  },
+  inspirationalQuote: {
+    fontSize: 16,
+    color: '#666666',
+    marginTop: 10,
+    textAlign: 'center',
   },
   saldoContainer: {
-    backgroundColor: '#2a2a2a',
+    backgroundColor: '#F0F0F0',
     padding: 20,
     borderRadius: 10,
     marginTop: 15,
@@ -118,19 +125,19 @@ const styles = StyleSheet.create({
   },
   saldoTitle: {
     fontSize: 18,
-    color: '#cccccc',
+    color: '#666666',
   },
   saldoAmount: {
     fontSize: 35,
     fontWeight: 'bold',
-    color: '#4caf50',
+    color: '#0033A0',
     marginTop: 10,
   },
   optionsContainer: {
     marginTop: 40,
   },
   optionButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#0033A0',
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,
@@ -145,7 +152,7 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#FFFFFF',
   },
   icon: {
     marginRight: 10,
@@ -164,7 +171,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   logoutText: {
-    color: '#ffffff',
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
   },

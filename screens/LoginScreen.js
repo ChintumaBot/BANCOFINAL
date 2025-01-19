@@ -13,7 +13,7 @@ const LoginScreen = ({ navigation }) => {
     }
 
     try {
-      const response = await fetch('http://172.17.182.104:5000/api/auth/login', {
+      const response = await fetch('http://192.168.1.108:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,11 +39,11 @@ const LoginScreen = ({ navigation }) => {
       <Text style={styles.title}>Iniciar sesión</Text>
 
       <View style={styles.inputContainer}>
-        <Icon name="user" size={20} color="#AAAAAA" style={styles.icon} />
+        <Icon name="user" size={20} color="#0033A0" style={styles.icon} />
         <TextInput 
           style={styles.input}
           placeholder="Correo electrónico"
-          placeholderTextColor="#AAAAAA"
+          placeholderTextColor="#666666"
           value={correo}
           onChangeText={setCorreo}
           keyboardType="email-address"
@@ -51,11 +51,11 @@ const LoginScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.inputContainer}>
-        <Icon name="lock" size={20} color="#AAAAAA" style={styles.icon} />
+        <Icon name="lock" size={20} color="#0033A0" style={styles.icon} />
         <TextInput
           style={styles.input}
           placeholder="Contraseña"
-          placeholderTextColor="#AAAAAA"
+          placeholderTextColor="#666666"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
@@ -82,48 +82,50 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#121212',
+    backgroundColor: '#FFFFFF',
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#0033A0',
     marginBottom: 20,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
+    width: '80%',
     padding: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#007BFF',
+    borderBottomColor: '#0033A0',
     marginBottom: 20,
   },
   input: {
     flex: 1,
     height: 40,
-    color: '#ffffff',
+    color: '#0033A0',
     fontSize: 16,
   },
   icon: {
     marginRight: 10, 
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#0033A0',
     padding: 15,
     borderRadius: 10,
-    width: '100%',
+    width: '80%',
     alignItems: 'center',
     marginBottom: 10,
   },
   buttonText: {
-    color: '#ffffff',
+    color: '#FFFFFF',
     fontWeight: 'bold',
+    fontSize: 18,
   },
   linkText: {
-    color: '#007BFF',
-    marginTop: 10,
+    color: '#0033A0',
+    fontSize: 16,
+    textDecorationLine: 'underline',
   },
 });
 

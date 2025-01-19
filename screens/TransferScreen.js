@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, StyleSheet, Button, TextInput, Alert, TouchableOpacity } from "react-native";
 import { CameraView, Camera } from "expo-camera";
+import QRCode from 'react-native-qrcode-svg';
 
 export default function TransferScreen({ navigation, route }) {
   const [hasPermission, setHasPermission] = useState(null);
@@ -32,7 +33,7 @@ export default function TransferScreen({ navigation, route }) {
     }
   };
 
-  const handleTransfer = () => {
+  const handleGenerateQR = () => {
     if (!monto || parseFloat(monto) <= 0) {
       Alert.alert("Error", "Por favor ingresa un monto válido.");
       return;
@@ -43,23 +44,27 @@ export default function TransferScreen({ navigation, route }) {
       return;
     }
 
-    fetch("http://172.17.182.104:5000/api/transfer", {
+    const data = {
+      fromUserId: user.id,
+      amount: parseFloat(monto),
+      concepto,
+    };
+
+    setQrData(data);
+  };
+
+  const handleTransfer = () => {
+    fetch("http://192.168.1.108:5000/api/transfer", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        fromUserId: user.id,
-        toUserId: qrData.idUsuario,
-        amount: parseFloat(monto),
-        concepto,
-      }),
+      body: JSON.stringify(qrData),
     })
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
           navigation.navigate("TransferConfirmationScreen", {
-            recipientName: qrData.nombre,
             amount: monto,
             user: user,
           });
@@ -70,6 +75,23 @@ export default function TransferScreen({ navigation, route }) {
       .catch((error) => {
         Alert.alert("Error", "Error de conexión al realizar la transferencia.");
       });
+  };
+
+  const handleConfirmTransfer = () => {
+    Alert.alert(
+      "Confirmar Transferencia",
+      `¿Estás seguro de que deseas transferir $${monto} MXN a ${qrData.nombre}?`,
+      [
+        {
+          text: "Cancelar",
+          style: "cancel",
+        },
+        {
+          text: "Confirmar",
+          onPress: handleTransfer,
+        },
+      ]
+    );
   };
 
   const handleCancel = () => {
@@ -124,13 +146,24 @@ export default function TransferScreen({ navigation, route }) {
           />
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.roundButton} onPress={handleTransfer}>
-              <Text style={styles.buttonText}>Transferir</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
-              <Text style={styles.buttonText}>Cancelar</Text>
+            <TouchableOpacity style={styles.roundButton} onPress={handleGenerateQR}>
+              <Text style={styles.buttonText}>Generar QR</Text>
             </TouchableOpacity>
           </View>
+
+          {qrData && (
+            <View style={styles.qrContainer}>
+              <QRCode
+                value={JSON.stringify(qrData)}
+                size={200}
+                color="black"
+                backgroundColor="white"
+              />
+              <TouchableOpacity style={styles.confirmButton} onPress={handleConfirmTransfer}>
+                <Text style={styles.buttonText}>Confirmar Transferencia</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
       ) : (
         <>
@@ -244,9 +277,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  confirmButton: {
+    backgroundColor: "#4CAF50",
+    width: 200,
+    height: 50,
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
   buttonText: {
     color: "#ffffff",
     fontSize: 18,
     fontWeight: "600",
+  },
+  qrContainer: {
+    marginTop: 30,
+    alignItems: "center",
   },
 });

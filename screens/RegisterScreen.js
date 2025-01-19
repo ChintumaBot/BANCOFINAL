@@ -15,7 +15,7 @@ const RegisterScreen = ({ navigation }) => {
     }
 
     // Registro en el backend
-    fetch('http://172.17.182.104:5000/api/auth/register', {
+    fetch('http://192.168.1.108:5000/api/auth/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,32 +45,32 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcomeText}>Crea una nueva cuenta.</Text>
+      <Text style={styles.title}>Registrarse</Text>
 
       <TextInput
         placeholder="Nombre"
-        placeholderTextColor="#AAAAAA"
+        placeholderTextColor="#666666"
         style={styles.input}
         value={nombre}
         onChangeText={setFirstName}
       />
       <TextInput
         placeholder="Apellido paterno"
-        placeholderTextColor="#AAAAAA"
+        placeholderTextColor="#666666"
         style={styles.input}
         value={apellido_p}
         onChangeText={setLastName}
       />
       <TextInput
         placeholder="Apellido materno"
-        placeholderTextColor="#AAAAAA"
+        placeholderTextColor="#666666"
         style={styles.input}
         value={apellido_m}
         onChangeText={setMiddleName}
       />
       <TextInput
         placeholder="Correo electrónico"
-        placeholderTextColor="#AAAAAA"
+        placeholderTextColor="#666666"
         style={styles.input}
         keyboardType="email-address"
         value={correo}
@@ -78,7 +78,7 @@ const RegisterScreen = ({ navigation }) => {
       />
       <TextInput
         placeholder="Contraseña"
-        placeholderTextColor="#AAAAAA"
+        placeholderTextColor="#666666"
         style={styles.input}
         secureTextEntry
         value={password}
@@ -90,7 +90,7 @@ const RegisterScreen = ({ navigation }) => {
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-        <Text style={styles.link}>¿Ya estás registrado? Inicia sesión</Text>
+        <Text style={styles.linkText}>¿Ya tienes una cuenta? Inicia sesión</Text>
       </TouchableOpacity>
     </View>
   );
@@ -101,40 +101,43 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#121212',
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
   },
-  welcomeText: {
-    fontSize: 24,
+  title: {
+    fontSize: 32,
+    color: '#0033A0',
     fontWeight: 'bold',
     marginBottom: 20,
-    textAlign: 'center',
-    color: '#FFFFFF',
   },
   input: {
-    width: '100%',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#007BFF',
-    color: '#ffffff',
+    width: '80%',
+    height: 50,
+    borderColor: '#0033A0',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
     marginBottom: 20,
+    color: '#0033A0',
   },
   button: {
-    height: 50,
-    backgroundColor: '#007bff',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: '#0033A0',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
     borderRadius: 10,
-    marginTop: 10,
+    marginBottom: 20,
+    width: '80%',
+    alignItems: 'center',
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
+    color: '#FFFFFF',
+    fontSize: 18,
     fontWeight: 'bold',
   },
-  link: {
-    marginTop: 20,
-    textAlign: 'center',
-    color: '#007bff',
+  linkText: {
+    color: '#0033A0',
+    fontSize: 16,
+    textDecorationLine: 'underline',
   },
 });
 

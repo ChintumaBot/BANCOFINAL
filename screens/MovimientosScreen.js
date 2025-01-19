@@ -10,7 +10,7 @@ const MovimientosScreen = ({ route }) => {
   useEffect(() => {
     const obtenerMovimientos = async () => {
       try {
-        const response = await fetch('http://172.17.182.104:5000/api/movimientos', {
+        const response = await fetch('http://192.168.1.108:5000/api/movimientos', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const MovimientosScreen = ({ route }) => {
   if (loading) {
     return (
       <View style={styles.container}>
-        <ActivityIndicator size="large" color="#4CAF50" />
+        <ActivityIndicator size="large" color="#0033A0" />
       </View>
     );
   }
@@ -99,19 +99,19 @@ const MovimientosScreen = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#121212',
+    backgroundColor: '#FFFFFF',
     paddingTop: 20,
     paddingHorizontal: 20,
   },
   headerText: {
-    color: '#ffffff',
+    color: '#0033A0',
     fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
   },
   movimientoContainer: {
-    backgroundColor: '#121212',
+    backgroundColor: '#F0F0F0',
     padding: 15,
     marginVertical: 10,
     borderRadius: 10,
@@ -135,12 +135,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   movimientoText: {
-    color: '#ffffff',
+    color: '#0033A0',
     fontSize: 16,
     marginBottom: 5,
   },
   movimientoTextBold: {
-    color: '#ffffff',
+    color: '#0033A0',
     fontSize: 16,
     marginBottom: 5,
     fontWeight: 'bold',
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   amountText: {
-    color: '#ffffff',
+    color: '#0033A0',
     fontSize: 18,
     fontWeight: 'bold',
   },
   mxnText: {
-    color: '#ffffff',
+    color: '#0033A0',
     fontSize: 14,
     fontWeight: 'bold',
     marginTop: 5,
